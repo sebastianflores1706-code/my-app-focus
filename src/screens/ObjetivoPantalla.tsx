@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -33,14 +34,25 @@ const ObjetivoPantalla = ({ navigation }: any) => {
   const [seleccionado, setSeleccionado] = useState("");
 
   return (
-    <LinearGradient 
-      colors={["#0A0A0A", "#111111"]} 
-      style={styles.container}
-    >
-      {/* 🔥 Título estilo Gymshark */}
-      <Text style={styles.title}>¿Cuál es tu objetivo?</Text>
+    <View style={styles.container}>
+      
+      {/* 🔥 Banner superior más grande */}
+      <ImageBackground
+        source={{
+          uri: "https://images.unsplash.com/photo-1603734220970-25a0b335ca01?auto=format&fit=crop&w=1200&q=80",
+        }}
+        style={styles.banner}
+      >
+        <LinearGradient
+          colors={["rgba(0,0,0,0.75)", "rgba(0,0,0,0.3)", "transparent"]}
+          style={styles.bannerOverlay}
+        >
+          <Text style={styles.title}>¿Cuál es tu Objetivo?</Text>
+        </LinearGradient>
+      </ImageBackground>
+
       <Text style={styles.subtitle}>
-        Selecciona uno para personalizar tus rutinas
+        Nadie vendrá a hacerlo por ti.
       </Text>
 
       <View style={styles.cardsContainer}>
@@ -70,7 +82,7 @@ const ObjetivoPantalla = ({ navigation }: any) => {
         ))}
       </View>
 
-      {/* 🔥 Botón premium ver progreso */}
+      {/* Botón Ver progreso */}
       <TouchableOpacity
         style={styles.progressButton}
         onPress={() =>
@@ -79,7 +91,7 @@ const ObjetivoPantalla = ({ navigation }: any) => {
       >
         <Text style={styles.progressText}>Ver mi progreso</Text>
       </TouchableOpacity>
-    </LinearGradient>
+    </View>
   );
 };
 
@@ -88,30 +100,45 @@ export default ObjetivoPantalla;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 80,
     paddingHorizontal: 20,
+    backgroundColor: "#0A0A0A",
   },
 
-  /* ⭐ Título premium estilo GymShark */
+  /* Banner ahora más grande */
+  banner: {
+    height: 280, // 🔥 más grande
+    width: "110%", // un poco más ancho para efecto premium
+    marginLeft: "-5%",
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    overflow: "hidden",
+  },
+
+  bannerOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center", // 🔥 TÍTULO CENTRADO
+    paddingTop: 40,
+  },
+
+  /* TÍTULO PREMIUM */
   title: {
-    fontSize: 36,
+    fontSize: 40,
     fontWeight: "900",
     color: "#00E5FF",
     textAlign: "center",
-    textShadowColor: "rgba(0,229,255,0.35)",
+    letterSpacing: 2,
+    textShadowColor: "rgba(0, 229, 255, 0.5)",
     textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 18,
-    letterSpacing: 1,
-    marginBottom: 10,
-    marginTop: 30,
+    textShadowRadius: 20,
   },
 
   subtitle: {
     color: "#AAA",
     fontSize: 16,
+    marginTop: 25,
+    marginBottom: 25,
     textAlign: "center",
-    opacity: 0.85,
-    marginBottom: 30,
   },
 
   cardsContainer: {
@@ -125,7 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 15,
-    backgroundColor: "rgba(255,255,255,0.1)",
+    backgroundColor: "rgba(255,255,255,0.08)",
   },
 
   cardSelected: {
@@ -139,14 +166,13 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
 
-  /* 🔥 Botón Ver Progreso */
   progressButton: {
     backgroundColor: "#00E5FF",
     paddingVertical: 14,
-    paddingHorizontal: 20,
     borderRadius: 16,
     alignItems: "center",
-    marginTop: 50,
+    marginTop: 40,
+    marginBottom: 25,
   },
 
   progressText: {

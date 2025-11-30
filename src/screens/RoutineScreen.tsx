@@ -53,7 +53,13 @@ const RoutinesScreen = ({ navigation, route }: any) => {
             Mantén la constancia. Cada día cuenta.
           </Text>
 
-          <TouchableOpacity style={styles.bannerButton}>
+          <TouchableOpacity style={styles.bannerButton}
+          onPress={() =>
+            navigation.navigate("DatosUsuario",{
+              objetivo: objetivo,
+            })
+          }
+          >
             <Text style={styles.bannerButtonText}>Comenzar</Text>
           </TouchableOpacity>
         </View>

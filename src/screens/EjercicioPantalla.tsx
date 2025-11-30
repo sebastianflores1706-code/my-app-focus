@@ -8,14 +8,17 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRutinas } from "../context/RutinaContext";
 
 const EjercicioPantalla = ({ route, navigation }: any) => {
   const { ejercicio } = route.params;
 
+  // ⬅️ CONTEXTO: para guardar ejercicios
+  const { agregarEjercicio } = useRutinas();
+
   return (
     <ScrollView style={styles.container}>
-
-      {/* 🔥 Botón de regreso */}
+      {/* Botón de regreso */}
       <TouchableOpacity
         style={styles.backButton}
         onPress={() => navigation.goBack()}
@@ -23,39 +26,39 @@ const EjercicioPantalla = ({ route, navigation }: any) => {
         <Ionicons name="chevron-back" size={26} color="#00E5FF" />
       </TouchableOpacity>
 
-      {/* 🔥 IMAGEN GRANDE */}
+      {/* Imagen grande */}
       <View style={styles.imageContainer}>
         <Image source={{ uri: ejercicio.image }} style={styles.image} />
       </View>
 
-      {/* 🔥 TÍTULO */}
+      {/* Título */}
       <Text style={styles.title}>{ejercicio.name}</Text>
 
-      {/* 🔥 SERIES Y REPS */}
+      {/* Series y repeticiones */}
       <Text style={styles.subtext}>
         {ejercicio.sets} Series • {ejercicio.reps} Reps
       </Text>
 
-      {/* 🔥 CHIPS DE MÚSCULOS (DINÁMICOS Y SEGUROS) */}
+      {/* Chips de músculos */}
       <View style={styles.chipContainer}>
-        {(ejercicio.muscles ?? []).map((m: string, index: number) => (
+        {ejercicio.muscles?.map((m: string, index: number) => (
           <View key={index} style={styles.chip}>
             <Text style={styles.chipText}>{m}</Text>
           </View>
         ))}
       </View>
 
-      {/* 🔥 DESCRIPCIÓN */}
+      {/* Descripción */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Descripción</Text>
         <Text style={styles.sectionText}>
           Este ejercicio requiere control y técnica adecuada. Mantén los codos
           estables, no uses impulso y enfócate en la activación del músculo
-          objetivo. Respira correctamente durante cada repetición.
+          objetivo.
         </Text>
       </View>
 
-      {/* 🔥 TÉCNICA */}
+      {/* Técnica */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Técnica Correcta</Text>
         <Text style={styles.sectionText}>
@@ -66,8 +69,14 @@ const EjercicioPantalla = ({ route, navigation }: any) => {
         </Text>
       </View>
 
-      {/* 🔥 BOTÓN */}
-      <TouchableOpacity style={styles.button}>
+      {/* Botón: Añadir a mi rutina */}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          agregarEjercicio(ejercicio);
+          navigation.navigate("MainTabs", { screen: "Profile" });
+        }}
+      >
         <Text style={styles.buttonText}>Añadir a mi rutina</Text>
       </TouchableOpacity>
 
@@ -78,13 +87,16 @@ const EjercicioPantalla = ({ route, navigation }: any) => {
 
 export default EjercicioPantalla;
 
+/* ===================== */
+/*        ESTILOS        */
+/* ===================== */
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#0D0D0D",
   },
 
-  /* 🔙 Botón */
   backButton: {
     position: "absolute",
     top: 40,
@@ -97,7 +109,6 @@ const styles = StyleSheet.create({
     borderColor: "rgba(255,255,255,0.15)",
   },
 
-  /* Imagen grande */
   imageContainer: {
     width: "100%",
     height: 320,
@@ -126,13 +137,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 
-  /* Chips */
   chipContainer: {
     flexDirection: "row",
     gap: 10,
     marginTop: 20,
     paddingHorizontal: 20,
-    flexWrap: "wrap", // 🔥 permite más de una línea si hay muchos músculos
+    flexWrap: "wrap",
   },
 
   chip: {
@@ -149,7 +159,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 
-  /* Secciones */
   section: {
     marginTop: 25,
     backgroundColor: "rgba(255,255,255,0.05)",
@@ -173,7 +182,6 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
 
-  /* Botón premium */
   button: {
     backgroundColor: "#00E5FF",
     marginTop: 35,

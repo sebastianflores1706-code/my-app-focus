@@ -15,8 +15,10 @@ import EjercicioPantalla from "./src/screens/EjercicioPantalla";
 // Icons
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-// ⭐ IMPORTANTE: Provider del contexto
+// Providers
 import { RutinaProvider } from "./src/context/RutinaContext";
+import { CartProvider } from "./src/context/CartContext";
+import ProductsScreen from "./src/screens/ProductsScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -72,49 +74,49 @@ function MainTabs() {
           ),
         }}
       />
+
+      <Tab.Screen
+        name="Products"
+        component={ProductsScreen}
+        options={{
+          tabBarLabel: "Productos",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="pricetag-outline" size={size} color={color} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
 
 // ============================
-//         APP
+//             APP
 // ============================
 export default function App() {
   return (
-    // ⭐ Esto hace que TODA tu app pueda guardar ejercicios
+    // 🔥 Ejercicios guardados en perfil
     <RutinaProvider>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {/* 🛒 Carrito de compras */}
+      <CartProvider>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Objetivo" component={ObjetivoPantalla} />
+            <Stack.Screen name="DatosUsuario" component={DatosUsuarioPantalla} />
+            <Stack.Screen name="MainTabs" component={MainTabs} />
 
-          <Stack.Screen
-            name="Objetivo"
-            component={ObjetivoPantalla}
-            options={{ headerShown: false }}
-          />
+            <Stack.Screen
+              name="RoutineDetail"
+              component={RoutineDetailScreen}
+            />
 
-          <Stack.Screen
-            name="DatosUsuario"
-            component={DatosUsuarioPantalla}
-          />
-
-          <Stack.Screen
-            name="MainTabs"
-            component={MainTabs}
-          />
-
-          <Stack.Screen
-            name="RoutineDetail"
-            component={RoutineDetailScreen}
-          />
-
-          <Stack.Screen
-            name="ExerciseDetail"
-            component={EjercicioPantalla}
-            options={{ title: "Ejercicio" }}
-          />
-
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen
+              name="ExerciseDetail"
+              component={EjercicioPantalla}
+              options={{ title: "Ejercicio" }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </CartProvider>
     </RutinaProvider>
   );
 }

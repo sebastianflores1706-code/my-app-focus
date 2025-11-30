@@ -11,8 +11,11 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { RutinaContext } from "../context/RutinaContext";
 
 const ProfileScreen = ({ route, navigation }: any) => {
-  const datos = route.params?.datosUsuario;
-  const { misEjercicios } = useContext(RutinaContext); //🔥 ejercicios guardados
+  // ⭐ Si no llegan datosUsuario, que sea objeto vacío (evita crasheos)
+  const datos = route.params?.datosUsuario || {};
+
+  // ⭐ Ejercicios guardados
+  const { misEjercicios } = useContext(RutinaContext);
 
   return (
     <ScrollView style={styles.container}>
@@ -21,7 +24,7 @@ const ProfileScreen = ({ route, navigation }: any) => {
         <View>
           <Text style={styles.name}>Tu Perfil</Text>
           <Text style={styles.goalText}>
-            Objetivo: {datos?.objetivo || "No definido"}
+            Objetivo: {datos.objetivo || "No definido"}
           </Text>
         </View>
 
@@ -34,7 +37,7 @@ const ProfileScreen = ({ route, navigation }: any) => {
       </View>
 
       {/* 🔥 INFO FÍSICA */}
-      {datos && (
+      {Object.keys(datos).length > 0 && (
         <View style={styles.dataBox}>
           <Text style={styles.sectionTitle}>Tu Información Física</Text>
 
@@ -65,14 +68,15 @@ const ProfileScreen = ({ route, navigation }: any) => {
         </View>
       )}
 
-      {/* 🔥 NUEVA SECCIÓN: MIS EJERCICIOS GUARDADOS */}
+      {/* 🔥 MIS EJERCICIOS GUARDADOS */}
       {misEjercicios.length > 0 && (
         <View style={styles.dataBox}>
           <Text style={styles.sectionTitle}>Mis Ejercicios Guardados</Text>
 
           {misEjercicios.map((ej, index) => (
             <View key={index} style={{ marginBottom: 10 }}>
-              <Text style={styles.value}>• {ej.name}</Text>
+              {/* ⭐ Convertimos siempre a texto para evitar errores */}
+              <Text style={styles.value}>• {String(ej?.name || "")}</Text>
             </View>
           ))}
         </View>

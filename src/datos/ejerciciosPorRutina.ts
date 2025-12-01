@@ -6,7 +6,7 @@ export const ejerciciosPorRutina = {
       sets: "4",
       reps: "8-12",
       image:
-        "https://i.imgur.com/ZcLLrkY.png",
+        "https://images.unsplash.com/photo-1704223523449-ca3925f89dcc?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       muscles: ["Pecho", "Hombro frontal", "Tríceps"],
     },
     {
@@ -15,7 +15,8 @@ export const ejerciciosPorRutina = {
       sets: "3",
       reps: "10-12",
       image:
-        "https://i.imgur.com/ZcLLrkY.png",
+        "https://images.unsplash.com/photo-1611672585731-fa10603fb9e0?auto=format&fit=crop&w=800&q=70",
+
       muscles: ["Pecho"],
     },
     {
@@ -24,7 +25,7 @@ export const ejerciciosPorRutina = {
       sets: "4",
       reps: "8-12",
       image:
-        "https://i.imgur.com/ZcLLrkY.png",
+        "https://images.unsplash.com/photo-1704223523449-ca3925f89dcc?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       muscles: ["Pecho superior", "Hombro frontal", "Tríceps"],
     },
   ],
@@ -36,7 +37,7 @@ export const ejerciciosPorRutina = {
       sets: "4",
       reps: "10-12",
       image:
-        "https://i.imgur.com/ZcLLrkY.png",
+        "https://images.unsplash.com/photo-1646072508097-0c8b3cbe44bc?auto=format&fit=crop&w=800&q=70",
       muscles: ["Dorsales", "Bíceps", "Hombro posterior"],
     },
     {
@@ -45,7 +46,7 @@ export const ejerciciosPorRutina = {
       sets: "3",
       reps: "8-10",
       image:
-        "https://i.imgur.com/ZcLLrkY.png",
+        "https://images.unsplash.com/photo-1704223523493-84c92ac51ad7?auto=format&fit=crop&w=800&q=70",
       muscles: ["Espalda media", "Bíceps", "Trapecio"],
     },
     {
@@ -54,7 +55,7 @@ export const ejerciciosPorRutina = {
       sets: "3",
       reps: "10-12",
       image:
-        "https://i.imgur.com/ZcLLrkY.png",
+        "https://images.unsplash.com/photo-1647456760484-fae601af80f3?auto=format&fit=crop&w=800&q=70",
       muscles: ["Espalda media", "Bíceps"],
     },
   ],
@@ -66,7 +67,7 @@ export const ejerciciosPorRutina = {
       sets: "4",
       reps: "8-10",
       image:
-        "https://i.imgur.com/ZcLLrkY.png",
+        "https://images.unsplash.com/photo-1646072508462-a802209a16f3?auto=format&fit=crop&w=800&q=70",
       muscles: ["Cuádriceps", "Glúteos", "Femoral", "Core"],
     },
     {
@@ -75,7 +76,7 @@ export const ejerciciosPorRutina = {
       sets: "4",
       reps: "10-12",
       image:
-        "https://i.imgur.com/ZcLLrkY.png",
+        "https://images.unsplash.com/photo-1434682772747-f16d3ea162c3?auto=format&fit=crop&w=800&q=70",
       muscles: ["Cuádriceps", "Glúteos"],
     },
     {
@@ -84,7 +85,7 @@ export const ejerciciosPorRutina = {
       sets: "3",
       reps: "12-15",
       image:
-        "https://i.imgur.com/ZcLLrkY.png",
+        "https://images.unsplash.com/photo-1737281814123-a3ecd137978a?auto=format&fit=crop&w=1170&q=80",
       muscles: ["Cuádriceps"],
     },
   ],
@@ -95,7 +96,7 @@ export const ejerciciosPorRutina = {
       name: "Shoulder Press",
       sets: "4",
       reps: "8-12",
-      image: "https://i.imgur.com/ZcLLrkY.png",
+      image: "https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=...",
       muscles: ["Deltoide frontal", "Deltoide lateral", "Tríceps"],
     },
     {
@@ -103,7 +104,7 @@ export const ejerciciosPorRutina = {
       name: "Lateral Raises",
       sets: "3",
       reps: "12-15",
-      image: "https://i.imgur.com/ZcLLrkY.png",
+      image: "https://images.unsplash.com/photo-1704223523328-a822b65c6e1b?auto=format&fit=crop&w=764&q=80&ixlib=rb-4.1.0&ixid=...",
       muscles: ["Deltoide lateral"],
     },
     {
@@ -111,7 +112,7 @@ export const ejerciciosPorRutina = {
       name: "Rear Delt Fly",
       sets: "3",
       reps: "12-15",
-      image: "https://i.imgur.com/ZcLLrkY.png",
+      image: "https://images.unsplash.com/photo-1744551472645-7fd56c0406ff?auto=format&fit=crop&w=800&q=70",
       muscles: ["Deltoide posterior"],
     },
   ],
@@ -122,7 +123,7 @@ export const ejerciciosPorRutina = {
       name: "Barbell Curl",
       sets: "4",
       reps: "8-12",
-      image: "https://i.imgur.com/ZcLLrkY.png",
+      image: "https://images.unsplash.com/photo-1704223523321-7b0b44a1a0b9?auto=format&fit=crop&w=800&q=70",
       muscles: ["Bíceps", "Braquial", "Antebrazo"],
     },
     {
@@ -130,7 +131,7 @@ export const ejerciciosPorRutina = {
       name: "Hammer Curl",
       sets: "3",
       reps: "10-12",
-      image: "https://i.imgur.com/ZcLLrkY.png",
+      image: "https://images.unsplash.com/photo-1704223523318-116d02723c05?auto=format&fit=crop&w=800&q=70",
       muscles: ["Braquial", "Braquiorradial"],
     },
     {
@@ -138,7 +139,7 @@ export const ejerciciosPorRutina = {
       name: "Preacher Curl",
       sets: "3",
       reps: "10-12",
-      image: "https://i.imgur.com/ZcLLrkY.png",
+      image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=70",
       muscles: ["Bíceps"],
     },
   ],
@@ -149,7 +150,7 @@ export const ejerciciosPorRutina = {
       name: "Tricep Pushdown",
       sets: "4",
       reps: "10-12",
-      image: "https://i.imgur.com/ZcLLrkY.png",
+      image: "https://plus.unsplash.com/premium_photo-1661596487728-54e115969d8b?auto=format&fit=crop&w=1170&q=80...",
       muscles: ["Tríceps lateral", "Tríceps medial"],
     },
     {
@@ -157,7 +158,7 @@ export const ejerciciosPorRutina = {
       name: "Skull Crushers",
       sets: "3",
       reps: "8-12",
-      image: "https://i.imgur.com/ZcLLrkY.png",
+      image: "https://images.unsplash.com/photo-1647456757917-ea444a2b703b?auto=format&fit=crop&w=800&q=70",
       muscles: ["Tríceps largo"],
     },
     {
@@ -165,7 +166,7 @@ export const ejerciciosPorRutina = {
       name: "Dips",
       sets: "3",
       reps: "10-12",
-      image: "https://i.imgur.com/ZcLLrkY.png",
+      image: "https://images.unsplash.com/photo-1704223523649-e745e081be90?auto=format&fit=crop&w=800&q=70",
       muscles: ["Tríceps", "Pecho", "Hombro frontal"],
     },
   ],

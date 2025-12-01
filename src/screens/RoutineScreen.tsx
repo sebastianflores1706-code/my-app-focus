@@ -29,16 +29,24 @@ const RoutinesScreen = ({ navigation, route }: any) => {
   return (
     <LinearGradient
       colors={["#0D0D0D", "#000000"]}
-      style={styles.container}
+       style={styles.container}
     >
       {/* 🔥 TÍTULO */}
       <Text style={styles.title}>Rutinas</Text>
+      <TouchableOpacity
+      style={styles.homeButton}
+        onPress={() => navigation.navigate("Objetivo")}
+        >
+          <Ionicons name="home" size={20} color="#000" />
+        </TouchableOpacity>
+
 
       {/* 🔥 BANNER MOTIVACIONAL */}
       <View style={styles.banner}>
+
         <Image
           source={{
-            uri: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80",
+            uri: "https://images.unsplash.com/photo-1674834727206-4bc272bfd8da?auto=format&fit=crop&w=800&q=70",
           }}
           style={styles.bannerImage}
         />
@@ -62,6 +70,8 @@ const RoutinesScreen = ({ navigation, route }: any) => {
           >
             <Text style={styles.bannerButtonText}>Comenzar</Text>
           </TouchableOpacity>
+
+
         </View>
       </View>
 
@@ -165,6 +175,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
   },
+
+  homeButton: {
+  position: "absolute",
+  top: 45,
+  right: 20,
+  backgroundColor: "#00E5FF",
+  padding: 12,
+  borderRadius: 14,
+  shadowColor: "#00E5FF",
+  shadowOpacity: 0.6,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 10,
+  zIndex: 20,
+},
+
+
+
 
   /* 🔥 Tarjeta de rutina */
   card: {

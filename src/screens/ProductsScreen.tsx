@@ -17,21 +17,66 @@ const productos = [
     id: "1",
     name: "Proteína Whey 2lb",
     price: 550,
-    image: "https://i.imgur.com/fHyEMsl.jpeg",
+    image: "https://images.unsplash.com/photo-1701859076902-72989d9e038a?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "2",
     name: "Creatina 300g",
     price: 380,
-    image: "https://i.imgur.com/EEwQYbK.jpeg",
+    image: "https://images.unsplash.com/photo-1683394305929-5e7c8d942127?auto=format&fit=crop&w=800&q=70",
   },
   {
     id: "3",
     name: "Pre-Workout",
     price: 420,
-    image: "https://i.imgur.com/41jxgqW.jpeg",
+    image: "https://images.unsplash.com/photo-1701859082181-663004d346d2?auto=format&fit=crop&w=800&q=70",
+  },
+
+  // 🔥 Nuevos productos
+  {
+    id: "4",
+    name: "BCAA Aminoácidos",
+    price: 299,
+    image: "https://images.unsplash.com/photo-1709976142774-ce1ef41a8378?auto=format&fit=crop&w=1170&q=80",
+  },
+  {
+    id: "5",
+    name: "Glutamina 250g",
+    price: 310,
+    image: "https://images.unsplash.com/photo-1584116831322-57d789ed6a40?auto=format&fit=crop&w=1170&q=80",
+  },
+  {
+    id: "6",
+    name: "Proteína Vegana",
+    price: 620,
+    image: "https://images.unsplash.com/photo-1693996045838-980674653385?auto=format&fit=crop&w=1170&q=80",
+  },
+  {
+    id: "7",
+    name: "Barra de Proteína (Caja 12)",
+    price: 270,
+    image: "https://images.unsplash.com/photo-1621057621391-7ed446a24b41?auto=format&fit=crop&w=1114&q=80",
+  },
+  {
+    id: "8",
+    name: "Termogénico Burner",
+    price: 450,
+    image: "https://plus.unsplash.com/premium_photo-1755707977968-7d68f651b244?auto=format&fit=crop&w=1170&q=80…",
+  },
+  {
+    id: "9",
+    name: "Omega 3 Premium",
+    price: 199,
+    image: "https://images.unsplash.com/photo-1709976142410-9aae3b10e8bc?auto=format&fit=crop&w=1170&q=80",
+  },
+  {
+    id: "10",
+    name: "Proteína ISO 100",
+    price: 890,
+    image: "https://images.unsplash.com/photo-1729701494059-07f6767b476b?auto=format&fit=crop&w=800&q=70",
   },
 ];
+
 
 const ProductsScreen = () => {
   const { addToCart } = useCart();

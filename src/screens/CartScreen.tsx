@@ -11,7 +11,7 @@ import {
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useCart } from "../context/CartContext";
 
-const CartScreen = () => {
+const CartScreen = ({ }) => {
   const { cart, removeFromCart } = useCart();
 
   const total = cart.reduce((sum, item) => sum + item.price, 0);
@@ -20,12 +20,14 @@ const CartScreen = () => {
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Mi Carrito</Text>
 
+
       {cart.length === 0 && (
         <Text style={styles.empty}>Tu carrito está vacío 🛒</Text>
       )}
 
       {cart.map((item, index) => (
         <View key={index} style={styles.card}>
+          
           <Image source={{ uri: item.image }} style={styles.image} />
 
           <View style={{ flex: 1 }}>
@@ -140,4 +142,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "800",
   },
+
+  homeButton: {
+  position: "absolute",
+  top: 45,
+  right: 20,
+  backgroundColor: "#00E5FF",
+  padding: 12,
+  borderRadius: 14,
+  shadowColor: "#00E5FF",
+  shadowOpacity: 0.6,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 10,
+  zIndex: 20,
+},
+
+
 });

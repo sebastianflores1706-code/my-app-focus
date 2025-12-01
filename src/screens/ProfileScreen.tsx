@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,25 +6,96 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RutinaContext } from "../context/RutinaContext";
 
 const ProfileScreen = ({ route, navigation }: any) => {
-  // ⭐ Si no llegan datosUsuario, que sea objeto vacío (evita crasheos)
-  const datos = route.params?.datosUsuario || {};
+  // Datos que vienen desde DatosUsuario
+  const datosParams = route.params?.datosUsuario || {};
 
-  // ⭐ Ejercicios guardados
+  // Modo edición
+  const [editando, setEditando] = useState(false);
+
+  // Estado con TUS MISMOS NOMBRES
+  const [userData, setUserData] = useState({
+    peso: "",
+    pesoMeta: "",
+    altura: "",
+    edad: "",
+    actividad: "",
+    objetivo: "",
+  });
+
+  // Ejercicios guardados del contexto
   const { misEjercicios } = useContext(RutinaContext);
+
+  // =======================================
+  // 🔥 1. Cargar datos guardados de memoria
+  // =======================================
+  useEffect(() => {
+    const cargar = async () => {
+      try {
+        const json = await AsyncStorage.getItem("perfil_usuario");
+        if (json) {
+          setUserData(JSON.parse(json));
+        } else {
+          setUserData((prev) => ({ ...prev, ...datosParams }));
+        }
+      } catch (e) {
+        console.log("Error cargando", e);
+      }
+    };
+    cargar();
+  }, []);
+
+  // =======================================
+  // 🔥 2. Guardar datos
+  // =======================================
+  const guardarDatos = async (data: any) => {
+    try {
+      await AsyncStorage.setItem("perfil_usuario", JSON.stringify(data));
+    } catch (e) {
+      console.log("Error guardando", e);
+    }
+  };
+
+  // =======================================
+  // 🔥 3. Si vienen datos nuevos del formulario → guardarlos
+  // =======================================
+  useEffect(() => {
+    if (Object.keys(datosParams).length > 0) {
+      const nuevos = { ...userData, ...datosParams };
+      setUserData(nuevos);
+      guardarDatos(nuevos);
+    }
+  }, [datosParams]);
+
+  // =======================================
+  // 🔥 4. Cuando editas texto
+  // =======================================
+  const actualizarCampo = (campo: string, valor: string) => {
+    setUserData((prev) => ({ ...prev, [campo]: valor }));
+  };
+
+  // =======================================
+  // 🔥 5. Guardar al terminar edición
+  // =======================================
+  const guardarCambios = () => {
+    guardarDatos(userData);
+    setEditando(false);
+  };
 
   return (
     <ScrollView style={styles.container}>
-      {/* 🔥 HEADER */}
+      {/* HEADER */}
       <View style={styles.header}>
         <View>
           <Text style={styles.name}>Tu Perfil</Text>
           <Text style={styles.goalText}>
-            Objetivo: {datos.objetivo || "No definido"}
+            Objetivo: {userData.objetivo || "No definido"}
           </Text>
         </View>
 
@@ -36,53 +107,104 @@ const ProfileScreen = ({ route, navigation }: any) => {
         />
       </View>
 
-      {/* 🔥 INFO FÍSICA */}
-      {Object.keys(datos).length > 0 && (
-        <View style={styles.dataBox}>
-          <Text style={styles.sectionTitle}>Tu Información Física</Text>
+      {/* INFO FÍSICA */}
+      <View style={styles.dataBox}>
+        <Text style={styles.sectionTitle}>Tu Información Física</Text>
 
-          <View style={styles.row}>
-            <Text style={styles.label}>Peso actual:</Text>
-            <Text style={styles.value}>{datos.peso} kg</Text>
-          </View>
+        {/* Peso actual */}
+        <View style={styles.row}>
+          <Text style={styles.label}>Peso actual:</Text>
 
-          <View style={styles.row}>
-            <Text style={styles.label}>Peso objetivo:</Text>
-            <Text style={styles.value}>{datos.pesoMeta} kg</Text>
-          </View>
-
-          <View style={styles.row}>
-            <Text style={styles.label}>Altura:</Text>
-            <Text style={styles.value}>{datos.altura} cm</Text>
-          </View>
-
-          <View style={styles.row}>
-            <Text style={styles.label}>Edad:</Text>
-            <Text style={styles.value}>{datos.edad} años</Text>
-          </View>
-
-          <View style={styles.row}>
-            <Text style={styles.label}>Actividad:</Text>
-            <Text style={styles.value}>{datos.actividad}</Text>
-          </View>
+          {editando ? (
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              value={userData.peso}
+              onChangeText={(t) => actualizarCampo("peso", t)}
+            />
+          ) : (
+            <Text style={styles.value}>{userData.peso} kg</Text>
+          )}
         </View>
-      )}
 
-      {/* 🔥 MIS EJERCICIOS GUARDADOS */}
+        {/* Peso objetivo */}
+        <View style={styles.row}>
+          <Text style={styles.label}>Peso objetivo:</Text>
+
+          {editando ? (
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              value={userData.pesoMeta}
+              onChangeText={(t) => actualizarCampo("pesoMeta", t)}
+            />
+          ) : (
+            <Text style={styles.value}>{userData.pesoMeta} kg</Text>
+          )}
+        </View>
+
+        {/* Altura */}
+        <View style={styles.row}>
+          <Text style={styles.label}>Altura:</Text>
+
+          {editando ? (
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              value={userData.altura}
+              onChangeText={(t) => actualizarCampo("altura", t)}
+            />
+          ) : (
+            <Text style={styles.value}>{userData.altura} cm</Text>
+          )}
+        </View>
+
+        {/* Edad */}
+        <View style={styles.row}>
+          <Text style={styles.label}>Edad:</Text>
+
+          {editando ? (
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              value={userData.edad}
+              onChangeText={(t) => actualizarCampo("edad", t)}
+            />
+          ) : (
+            <Text style={styles.value}>{userData.edad} años</Text>
+          )}
+        </View>
+
+        {/* Actividad */}
+        <View style={styles.row}>
+          <Text style={styles.label}>Actividad:</Text>
+
+          {editando ? (
+            <TextInput
+              style={styles.input}
+              value={userData.actividad}
+              onChangeText={(t) => actualizarCampo("actividad", t)}
+            />
+          ) : (
+            <Text style={styles.value}>{userData.actividad}</Text>
+          )}
+        </View>
+      </View>
+
+      {/* MIS EJERCICIOS */}
       {misEjercicios.length > 0 && (
         <View style={styles.dataBox}>
           <Text style={styles.sectionTitle}>Mis Ejercicios Guardados</Text>
 
           {misEjercicios.map((ej, index) => (
             <View key={index} style={{ marginBottom: 10 }}>
-              {/* ⭐ Convertimos siempre a texto para evitar errores */}
               <Text style={styles.value}>• {String(ej?.name || "")}</Text>
             </View>
           ))}
         </View>
       )}
 
-      {/* 🔥 ESTADÍSTICAS */}
+      {/* ESTADÍSTICAS */}
       <View style={styles.statsBox}>
         <Text style={styles.sectionTitle}>Estadísticas</Text>
 
@@ -107,48 +229,44 @@ const ProfileScreen = ({ route, navigation }: any) => {
         </View>
       </View>
 
-      {/* 🔥 BOTÓN EDITAR DATOS */}
+      {/* BOTÓN EDITAR / GUARDAR */}
       <TouchableOpacity
-        style={styles.editButton}
-        onPress={() => navigation.navigate("DatosUsuario")}
+        style={[
+          styles.editButton,
+          { backgroundColor: editando ? "#00FF88" : "#00E5FF" },
+        ]}
+        onPress={() => {
+          if (editando) guardarCambios();
+          setEditando(!editando);
+        }}
       >
-        <Text style={styles.editButtonText}>Actualizar mis datos</Text>
+        <Text style={styles.editButtonText}>
+          {editando ? "Guardar cambios" : "Editar información"}
+        </Text>
       </TouchableOpacity>
 
-      <View style={{ height: 50 }} />
+      <View style={{ height: 60 }} />
     </ScrollView>
   );
 };
 
 export default ProfileScreen;
 
-/* 🎨 ESTILOS */
+/********** ESTILOS **********/
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0D0D0D",
-    padding: 20,
-  },
+  container: { flex: 1, backgroundColor: "#0D0D0D", padding: 20 },
 
-  /* HEADER */
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginTop: 60,
     marginBottom: 25,
   },
 
-  name: {
-    color: "#00E5FF",
-    fontSize: 32,
-    fontWeight: "900",
-  },
+  name: { color: "#00E5FF", fontSize: 32, fontWeight: "900" },
 
-  goalText: {
-    color: "#AAA",
-    fontSize: 15,
-    marginTop: 4,
-  },
+  goalText: { color: "#AAA", fontSize: 15, marginTop: 4 },
 
   avatar: {
     width: 70,
@@ -158,7 +276,6 @@ const styles = StyleSheet.create({
     borderColor: "#00E5FF",
   },
 
-  /* DATA BOX */
   dataBox: {
     backgroundColor: "rgba(255,255,255,0.05)",
     padding: 20,
@@ -178,24 +295,26 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 10,
+    marginBottom: 12,
+    alignItems: "center",
   },
 
-  label: {
-    color: "#AAA",
-    fontSize: 16,
-  },
+  label: { color: "#AAA", fontSize: 16 },
 
-  value: {
+  value: { color: "#FFF", fontSize: 16, fontWeight: "700" },
+
+  input: {
+    backgroundColor: "#1a1a1a",
     color: "#FFF",
-    fontSize: 16,
-    fontWeight: "700",
+    padding: 8,
+    width: 90,
+    borderRadius: 10,
+    borderColor: "#00E5FF",
+    borderWidth: 1,
+    textAlign: "right",
   },
 
-  /* ESTADÍSTICAS */
-  statsBox: {
-    marginTop: 10,
-  },
+  statsBox: { marginTop: 10 },
 
   statsRow: {
     flexDirection: "row",
@@ -204,39 +323,24 @@ const styles = StyleSheet.create({
 
   statCard: {
     width: "30%",
-    backgroundColor: "rgba(255,255,255,0.05)",
     paddingVertical: 18,
+    backgroundColor: "rgba(255,255,255,0.05)",
     borderRadius: 16,
-    alignItems: "center",
     borderColor: "rgba(255,255,255,0.1)",
     borderWidth: 1,
+    alignItems: "center",
   },
 
-  statNumber: {
-    color: "#FFF",
-    fontSize: 22,
-    fontWeight: "900",
-    marginTop: 8,
-  },
+  statNumber: { color: "#FFF", fontSize: 22, fontWeight: "900", marginTop: 8 },
 
-  statLabel: {
-    color: "#AAA",
-    fontSize: 14,
-    marginTop: 4,
-  },
+  statLabel: { color: "#AAA", fontSize: 14, marginTop: 4 },
 
-  /* BOTÓN EDITAR */
   editButton: {
-    backgroundColor: "#00E5FF",
     paddingVertical: 14,
     borderRadius: 14,
     alignItems: "center",
     marginTop: 30,
   },
 
-  editButtonText: {
-    color: "#000",
-    fontSize: 18,
-    fontWeight: "800",
-  },
+  editButtonText: { color: "#000", fontSize: 18, fontWeight: "800" },
 });
